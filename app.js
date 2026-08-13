@@ -299,229 +299,309 @@ window.updateQty = function(productId, delta) {
         cart = cart.filter(i => i.id !== productId);
     }
 
+// --- CLAEM MASTER TEMPLATE CART LOGIC FOR SÃO JOSÉ ---
+let fulfillmentType = 'delivery';
+let selectedPayment = 'Pix (Chave Copia e Cola)';
+const deliveryFee = 6.00;
+const CLIENT_WHATSAPP_SAO_JOSE = '555432234075';
+const PIX_KEY_SAO_JOSE = '(54) 3223-4075';
+
+// Add Item to Cart
+window.addToCart = function(itemId) {
+    const item = MENU_DATA.find(i => i.id === itemId);
+    if (!item) return;
+
+    const size = selectedSizes[itemId] || 'P';
+    const price = item.prices ? item.prices[size] : item.price;
+    const sizeLabel = size === 'P' ? 'Médio' : 'Grande';
+
+    const itemTitle = item.title + (item.hasSizes !== false ? ` (${sizeLabel})` : '');
+    const existing = cart.find(c => c.id === itemId && c.size === sizeLabel);
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            id: item.id,
+            title: itemTitle,
+            size: sizeLabel,
+            price: price,
+            quantity: 1,
+            notes: ''
+        });
+    }
+
     updateCartUI();
+    openCart();
+    showToast(`🥟 <strong>${itemTitle}</strong> foi adicionado ao seu carrinho!`);
 };
 
-window.removeFromCart = function(productId) {
-    cart = cart.filter(i => i.id !== productId);
-    updateCartUI();
-};
-
-// Fulfillment Selection
-window.setFulfillment = function(type) {
-    fulfillmentType = type;
-    document.getElementById('ful-delivery').classList.toggle('active', type === 'delivery');
-    document.getElementById('ful-pickup').classList.toggle('active', type === 'pickup');
-
-    const addressGroup = document.getElementById('address-group');
-    const deliveryLine = document.getElementById('summary-delivery-line');
-    
-    if (type === 'pickup') {
-        addressGroup.style.display = 'none';
-        deliveryLine.style.display = 'none';
-    } else {
-        addressGroup.style.display = 'block';
-        deliveryLine.style.display = 'flex';
+function updateItemNotes(index, val) {
+    if (cart[index]) {
+        cart[index].notes = val;
     }
+}
+window.updateItemNotes = updateItemNotes;
 
-    updateCartTotals();
-};
-
-// Payment Method Change
-window.onPaymentChange = function(val) {
-    const changeGroup = document.getElementById('change-group');
-    const pixBox = document.getElementById('pix-key-box');
-
-    if (val === 'cash') {
-        changeGroup.classList.remove('hidden');
-    } else {
-        changeGroup.classList.add('hidden');
+function changeQuantity(index, delta) {
+    if (cart[index]) {
+        cart[index].quantity += delta;
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1);
+        }
+        updateCartUI();
     }
+}
+window.changeQuantity = changeQuantity;
 
-    if (val === 'pix') {
-        pixBox.style.display = 'block';
-    } else {
-        pixBox.style.display = 'none';
-    }
-};
+function setupCartDrawerListeners() {
+    const fulfillmentBtns = document.querySelectorAll('.del-btn');
+    fulfillmentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            fulfillmentBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            fulfillmentType = btn.dataset.type || 'delivery';
+            
+            const addressBox = document.getElementById('address-box');
+            if (addressBox) {
+                addressBox.style.display = fulfillmentType === 'delivery' ? 'block' : 'none';
+            }
+            updateCartUI();
+        });
+    });
 
-// Update Cart UI Components
+    const paymentBtns = document.querySelectorAll('.pay-btn');
+    paymentBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            paymentBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedPayment = btn.dataset.pay || 'Pix (Chave Copia e Cola)';
+            
+            const cashChangeBox = document.getElementById('cash-change-box');
+            const pixInfoBox = document.getElementById('pix-lock-box');
+            
+            const isCash = selectedPayment.toLowerCase().includes('dinheiro');
+            const isPix = selectedPayment.toLowerCase().includes('pix');
+
+            if (cashChangeBox) cashChangeBox.style.display = isCash ? 'block' : 'none';
+            if (pixInfoBox) pixInfoBox.style.display = isPix ? 'block' : 'none';
+            
+            updateCartUI();
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCart();
+        }
+    });
+}
+
 function updateCartUI() {
-    const list = document.getElementById('cart-items-list');
-    const countBadges = [document.getElementById('cart-badge-count'), document.getElementById('mob-cart-count')];
-    const headerTotal = document.getElementById('cart-total-header');
+    const totalQuantity = cart.reduce((sum, i) => sum + i.quantity, 0);
+    const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const activeDeliveryFee = fulfillmentType === 'delivery' ? (subtotal > 0 ? deliveryFee : 0) : 0;
+    const finalTotal = subtotal + activeDeliveryFee;
 
-    const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-    countBadges.forEach(el => { if (el) el.textContent = totalQty; });
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) cartCountEl.innerText = totalQuantity;
+    
+    const cartTotalHeader = document.getElementById('cart-total-header');
+    if (cartTotalHeader) cartTotalHeader.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
 
-    if (!list) return;
+    const cartSubtotalEl = document.getElementById('cart-subtotal');
+    const cartDeliveryFeeEl = document.getElementById('cart-delivery-fee');
+    const cartGrandTotalEl = document.getElementById('cart-grand-total');
+
+    if (cartSubtotalEl) cartSubtotalEl.innerText = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+    if (cartDeliveryFeeEl) {
+        cartDeliveryFeeEl.innerText = fulfillmentType === 'delivery' 
+            ? `R$ ${activeDeliveryFee.toFixed(2).replace('.', ',')}` 
+            : 'Grátis (Balcão)';
+    }
+    if (cartGrandTotalEl) cartGrandTotalEl.innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+
+    const pixLockedAmount = document.getElementById('pix-locked-amount');
+    if (pixLockedAmount) {
+        pixLockedAmount.innerText = `R$ ${finalTotal.toFixed(2).replace('.', ',')}`;
+    }
+
+    const pixQrImg = document.getElementById('pix-qr-img');
+    if (pixQrImg) {
+        const qrData = encodeURIComponent(`Chave Pix São José: ${CLIENT_WHATSAPP_SAO_JOSE} | Valor: R$ ${finalTotal.toFixed(2).replace('.', ',')}`);
+        pixQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${qrData}`;
+    }
+
+    const container = document.getElementById('cart-items-container');
+    if (!container) return;
 
     if (cart.length === 0) {
-        list.innerHTML = `
-            <div class="cart-empty">
-                <i data-lucide="shopping-bag" style="width:48px; height:48px; color:#64748B; margin-bottom:12px;"></i>
-                <p>Seu carrinho está vazio.</p>
-                <span style="font-size:0.85rem; color:#94A3B8;">Que tal adicionar um pastel crocante ou um bolo especial?</span>
+        container.innerHTML = `
+            <div class="cart-empty" style="text-align: center; padding: 40px 20px; color: #A1A1AA;">
+                <i data-lucide="shopping-bag" style="width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5;"></i>
+                <p style="font-weight: 700; color: #FFF; margin-bottom: 4px;">Seu carrinho está vazio.</p>
+                <span style="font-size: 0.85rem;">Escolha os melhores pastéis e bolos no cardápio acima!</span>
             </div>
         `;
-    } else {
-        list.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.title}" class="cart-item-img">
-                <div class="cart-item-info">
-                    <h4 class="cart-item-title">${item.title}</h4>
-                    <span class="cart-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</span>
-                </div>
-                <div class="cart-item-controls">
-                    <button class="qty-btn" onclick="updateQty('${item.id}', -1)">-</button>
-                    <span class="qty-val">${item.qty}</span>
-                    <button class="qty-btn" onclick="updateQty('${item.id}', 1)">+</button>
-                    <button class="remove-btn" onclick="removeFromCart('${item.id}')" title="Remover item">
-                        <i data-lucide="trash-2"></i>
-                    </button>
-                </div>
+        if (window.lucide) window.lucide.createIcons();
+        return;
+    }
+
+    container.innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+            <div class="cart-item-info">
+                <h4>${item.title}</h4>
+                <p>R$ ${item.price.toFixed(2).replace('.', ',')} un.</p>
+                <input type="text" class="cart-item-note-input" placeholder="Obs: ex. sem cebola, bem frito..." value="${item.notes || ''}" onchange="updateItemNotes(${idx}, this.value)">
+                <span class="cart-item-price">Total: R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
             </div>
-        `).join('');
-    }
+            <div class="cart-controls">
+                <button type="button" class="cart-qty-btn" onclick="changeQuantity(${idx}, -1)" aria-label="Diminuir quantidade">-</button>
+                <span class="cart-qty-num">${item.quantity} un</span>
+                <button type="button" class="cart-qty-btn" onclick="changeQuantity(${idx}, 1)" aria-label="Aumentar quantidade">+</button>
+            </div>
+        </div>
+    `).join('');
 
-    updateCartTotals();
-
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
+    if (window.lucide) window.lucide.createIcons();
 }
 
-function updateCartTotals() {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const deliveryFee = fulfillmentType === 'delivery' && subtotal > 0 ? 6.00 : 0.00;
-    const total = subtotal + deliveryFee;
-
-    document.getElementById('summary-subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-    document.getElementById('summary-delivery').textContent = deliveryFee > 0 ? `R$ ${deliveryFee.toFixed(2).replace('.', ',')}` : 'Grátis (Retirada)';
-    document.getElementById('summary-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    
-    const headerTotal = document.getElementById('cart-total-header');
-    if (headerTotal) headerTotal.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+function openCart() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-overlay');
+    if (drawer) drawer.classList.add('active', 'open');
+    if (overlay) overlay.classList.add('active', 'open');
+    document.body.style.overflow = 'hidden';
 }
 
-// Copy Pix Key Feedback
-window.copyPixKey = function() {
-    navigator.clipboard.writeText(CLIENT_PIX_KEY).then(() => {
-        const btn = document.getElementById('btn-pix-copy');
-        if (btn) {
-            const originalHTML = btn.innerHTML;
-            btn.style.background = '#10B981';
-            btn.style.color = '#FFFFFF';
-            btn.style.borderColor = '#10B981';
-            btn.innerHTML = `<i data-lucide="check"></i> ✓ Chave Pix Copiada!`;
-            
+function closeCart() {
+    const drawer = document.getElementById('cart-drawer');
+    const overlay = document.getElementById('cart-overlay');
+    if (drawer) drawer.classList.remove('active', 'open');
+    if (overlay) overlay.classList.remove('active', 'open');
+    document.body.style.overflow = 'auto';
+}
+
+function toggleCartDrawer(show = true) {
+    if (show) openCart();
+    else closeCart();
+}
+window.openCart = openCart;
+window.closeCart = closeCart;
+window.closeCartDrawer = closeCart;
+window.toggleCartDrawer = toggleCartDrawer;
+
+function copyPixKey() {
+    const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const activeDeliveryFee = fulfillmentType === 'delivery' ? deliveryFee : 0;
+    const finalTotal = subtotal + activeDeliveryFee;
+
+    const copyBtn = document.getElementById('btn-copy-pix-key');
+
+    const handleSuccess = () => {
+        showToast(`Chave Pix (${PIX_KEY_SAO_JOSE}) copiada! Valor: R$ ${finalTotal.toFixed(2).replace('.', ',')}`);
+        
+        if (copyBtn) {
+            copyBtn.classList.add('copied');
+            copyBtn.innerHTML = `<i data-lucide="check" style="width:14px; height:14px;"></i> <span>✓ Chave Pix Copiada!</span>`;
             if (window.lucide) window.lucide.createIcons();
 
             setTimeout(() => {
-                btn.style.background = 'transparent';
-                btn.style.color = '#38BDF8';
-                btn.style.borderColor = '#38BDF8';
-                btn.innerHTML = originalHTML;
+                copyBtn.classList.remove('copied');
+                copyBtn.innerHTML = `<i data-lucide="copy" style="width:14px; height:14px;"></i> <span>Copiar Chave Pix</span>`;
                 if (window.lucide) window.lucide.createIcons();
             }, 2500);
         }
-        showToast('✓ Chave Pix da Pastelaria São José copiada com sucesso!');
-    });
-};
+    };
 
-// Drawer Toggle
-window.toggleCartDrawer = function(open) {
-    const drawer = document.getElementById('cart-drawer');
-    const overlay = document.getElementById('cart-overlay');
-    
-    if (drawer && overlay) {
-        drawer.classList.toggle('open', open);
-        overlay.classList.toggle('open', open);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(CLIENT_WHATSAPP_SAO_JOSE).then(handleSuccess).catch(handleSuccess);
+    } else {
+        handleSuccess();
     }
-};
+}
+window.copyPixKey = copyPixKey;
 
-// Dispatch Order via WhatsApp
-window.submitOrderWhatsApp = function() {
-    if (cart.length === 0) {
-        showToast('⚠️ Seu carrinho está vazio! Adicione itens antes de enviar.');
-        return;
-    }
-
-    const name = document.getElementById('cust-name').value.trim();
-    const address = document.getElementById('cust-address').value.trim();
-    const payment = document.getElementById('payment-method').value;
-    const change = document.getElementById('cash-change').value.trim();
-    const obs = document.getElementById('order-obs').value.trim();
-
-    if (!name) {
-        showToast('⚠️ Por favor, digite seu nome completo.');
-        document.getElementById('cust-name').focus();
-        return;
-    }
-
-    if (fulfillmentType === 'delivery' && !address) {
-        showToast('⚠️ Por favor, informe o endereço completo de entrega.');
-        document.getElementById('cust-address').focus();
-        return;
-    }
-
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    const deliveryFee = fulfillmentType === 'delivery' ? 6.00 : 0.00;
-    const total = subtotal + deliveryFee;
-
-    let paymentStr = 'Pix (Chave: (54) 3223-4075)';
-    if (payment === 'card') paymentStr = 'Cartão de Crédito / Débito (Máquina)';
-    if (payment === 'cash') paymentStr = `Dinheiro na entrega${change ? ` (Troco para ${change})` : ''}`;
-
-    let msg = `*🥟 NOVO PEDIDO - PASTELARIA SÃO JOSÉ*\n`;
-    msg += `------------------------------------\n`;
-    msg += `*Cliente:* ${name}\n`;
-    msg += `*Tipo:* ${fulfillmentType === 'delivery' ? '🚗 Tele-Entrega' : '🏪 Retirada no Balcão'}\n`;
-    if (fulfillmentType === 'delivery') {
-        msg += `*Endereço:* ${address}\n`;
-    }
-    msg += `*Pagamento:* ${paymentStr}\n`;
-    if (obs) {
-        msg += `*Observações:* ${obs}\n`;
-    }
-    msg += `------------------------------------\n`;
-    msg += `*ITENS DO PEDIDO:*\n`;
-
-    cart.forEach(item => {
-        msg += `• ${item.qty}x ${item.title} - R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}\n`;
-    });
-
-    msg += `------------------------------------\n`;
-    msg += `*Subtotal:* R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
-    if (fulfillmentType === 'delivery') {
-        msg += `*Taxa de Entrega:* R$ ${deliveryFee.toFixed(2).replace('.', ',')}\n`;
-    }
-    msg += `*TOTAL ESTIMADO:* R$ ${total.toFixed(2).replace('.', ',')}\n`;
-    msg += `------------------------------------\n`;
-    msg += `*Obrigado por escolher a Pastelaria São José!*`;
-
-    const encoded = encodeURIComponent(msg);
-    const waUrl = `https://wa.me/${CLIENT_WHATSAPP}?text=${encoded}`;
-    window.open(waUrl, '_blank');
-};
-
-// Toast Notifications
 function showToast(message) {
-    const container = document.getElementById('toast-container');
-    if (!container) return;
-
-    const toast = document.createElement('div');
-    toast.className = 'toast-box';
+    let toast = document.getElementById('toast-notification');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast-notification';
+        toast.className = 'toast-box';
+        document.body.appendChild(toast);
+    }
     toast.innerHTML = message;
-    
-    container.appendChild(toast);
-
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 10);
-
+    toast.classList.add('show');
     setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
+window.showToast = showToast;
+
+function sendWhatsAppOrder() {
+    if (cart.length === 0) {
+        alert('Seu carrinho está vazio! Adicione pelo menos um item antes de finalizar.');
+        return;
+    }
+
+    const customerName = document.getElementById('cust-name') ? document.getElementById('cust-name').value.trim() : '';
+    const customerAddress = document.getElementById('cust-address') ? document.getElementById('cust-address').value.trim() : '';
+    const cashChange = document.getElementById('cash-change-val') ? document.getElementById('cash-change-val').value.trim() : '';
+
+    if (fulfillmentType === 'delivery' && !customerAddress) {
+        alert('Por favor, informe seu endereço completo de entrega!');
+        if (document.getElementById('cust-address')) document.getElementById('cust-address').focus();
+        return;
+    }
+
+    const subtotal = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+    const activeDeliveryFee = fulfillmentType === 'delivery' ? deliveryFee : 0;
+    const finalTotal = subtotal + activeDeliveryFee;
+
+    let msg = `🥟 *NOVO PEDIDO - PASTELARIA SÃO JOSÉ*\n`;
+    msg += `------------------------------------\n`;
+    msg += `📦 *Tipo:* ${fulfillmentType === 'delivery' ? '🛵 Delivery em Domicílio' : '🛍️ Retirada no Balcão'}\n`;
+    if (customerName) msg += `👤 *Cliente:* ${customerName}\n`;
+    if (fulfillmentType === 'delivery' && customerAddress) {
+        msg += `🏠 *Endereço:* ${customerAddress}\n`;
+    }
+    msg += `\n*🛒 ITENS DO PEDIDO:*\n`;
+
+    cart.forEach((i, idx) => {
+        const itemSum = i.price * i.quantity;
+        msg += `${idx + 1}. *${i.title}*\n`;
+        msg += `   Qtd: ${i.quantity}x • R$ ${itemSum.toFixed(2).replace('.', ',')}\n`;
+        if (i.notes) msg += `   _Obs: ${i.notes}_\n`;
+        msg += `\n`;
+    });
+
+    msg += `------------------------------------\n`;
+    msg += `💰 *Subtotal:* R$ ${subtotal.toFixed(2).replace('.', ',')}\n`;
+    msg += `🛵 *Taxa de Entrega:* ${fulfillmentType === 'delivery' ? `R$ ${activeDeliveryFee.toFixed(2).replace('.', ',')}` : 'Grátis (Balcão)'}\n`;
+    msg += `💰 *TOTAL FINAL:* R$ ${finalTotal.toFixed(2).replace('.', ',')}\n\n`;
+
+    msg += `💳 *FORMA DE PAGAMENTO:*\n`;
+    const isCash = selectedPayment.toLowerCase().includes('dinheiro');
+    const isPix = selectedPayment.toLowerCase().includes('pix');
+
+    if (isPix) {
+        msg += `⚡ *PIX (Chave: ${PIX_KEY_SAO_JOSE} - Valor: R$ ${finalTotal.toFixed(2).replace('.', ',')})*\n`;
+        msg += `_Anexando o comprovante em seguida!_\n`;
+    } else if (isCash) {
+        msg += `💵 *Dinheiro* ${cashChange ? `(Troco para R$ ${cashChange})` : '(Sem troco)'}\n`;
+    } else {
+        msg += `💳 *Cartão de Crédito/Débito (Levar maquininha)*\n`;
+    }
+
+    msg += `\n_Pedido enviado pelo Site Oficial Pastelaria São José_`;
+
+    const url = `https://wa.me/${CLIENT_WHATSAPP_SAO_JOSE}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+}
+window.sendWhatsAppOrder = sendWhatsAppOrder;
+window.submitOrderWhatsApp = sendWhatsAppOrder;
+
+// Call listeners setup on init
+document.addEventListener('DOMContentLoaded', () => {
+    setupCartDrawerListeners();
+});

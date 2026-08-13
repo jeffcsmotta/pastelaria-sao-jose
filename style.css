@@ -920,22 +920,25 @@ button {
     align-items: center;
 }
 
-/* Cart Drawer */
+/* ==========================================================================
+   SHOPPING CART DRAWER - CLAEM MASTER TEMPLATE STRUCTURE
+   ========================================================================== */
+
 .cart-drawer-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 23, 42, 0.7);
+    background: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(4px);
-    z-index: 200;
+    z-index: 2000;
     opacity: 0;
     visibility: hidden;
-    transition: var(--transition);
+    transition: all 0.3s ease;
 }
 
-.cart-drawer-overlay.open {
+.cart-drawer-overlay.active, .cart-drawer-overlay.open {
     opacity: 1;
     visibility: visible;
 }
@@ -943,263 +946,365 @@ button {
 .cart-drawer {
     position: fixed;
     top: 0;
-    right: 0;
+    right: -520px;
     width: 100%;
-    max-width: 440px;
+    max-width: 520px;
     height: 100vh;
-    background: var(--drawer-bg);
-    color: #FFFFFF;
-    z-index: 201;
-    transform: translateX(100%);
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    background: #0B0B0C;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    z-index: 2001;
     display: flex;
     flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
 }
 
-.cart-drawer.open {
-    transform: translateX(0);
+.cart-drawer.active, .cart-drawer.open {
+    right: 0;
 }
 
+/* Fixed Drawer Header (Crisp #FFFFFF Title & ALWAYS ORANGE Pill Button Top Right) */
 .cart-header {
-    padding: 20px;
-    background: #0F172A;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: #0B0B0C;
+    flex-shrink: 0;
+    z-index: 10;
 }
 
 .cart-header-title {
+    color: #FFFFFF !important;
+    font-size: 1.2rem;
+    font-weight: 800;
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #FFFFFF;
+    font-family: var(--font-heading);
 }
 
-.cart-close-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #FFFFFF;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
+.cart-header-title i {
+    color: var(--primary) !important;
+    width: 22px;
+    height: 22px;
+}
+
+/* CONTINUAR ESCOLHENDO BUTTON - ALWAYS AMBER ORANGE (#F59E0B) TOP RIGHT */
+.btn-continue-shopping {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    transition: var(--transition);
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(245, 158, 11, 0.15) !important;
+    border: 1px solid #F59E0B !important;
+    border-radius: 9999px;
+    color: #F59E0B !important;
+    font-size: 0.84rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    user-select: none;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.1);
 }
 
-.cart-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+.btn-continue-shopping:hover {
+    background: #F59E0B !important;
+    color: #000000 !important;
+    border-color: #F59E0B !important;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
 }
 
+.btn-continue-shopping i {
+    color: #F59E0B !important;
+}
+
+.btn-continue-shopping:hover i {
+    color: #000000 !important;
+}
+
+/* Single Unified Cart Body (Natural Smooth Scroll) */
 .cart-body {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    padding: 24px;
+    background: #111115;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
+
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+.cart-body::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+}
+
+.cart-section-title {
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #A1A1AA;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
 .cart-items-container {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    min-height: 120px;
-}
-
-.cart-empty {
-    text-align: center;
-    padding: 40px 20px;
-    color: #94A3B8;
 }
 
 .cart-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 10px;
-    border-radius: var(--radius-sm);
+    background: #18181B;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 14px 16px;
+    transition: all 0.2s ease;
 }
 
-.cart-item-img {
-    width: 54px;
-    height: 54px;
-    border-radius: 6px;
-    object-fit: cover;
+.cart-item:hover {
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .cart-item-info {
     flex: 1;
+    padding-right: 12px;
 }
 
-.cart-item-title {
-    font-size: 0.9rem;
-    font-weight: 700;
+.cart-item-info h4 {
     color: #FFFFFF;
-    line-height: 1.2;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.cart-item-info p {
+    color: #A1A1AA;
+    font-size: 0.8rem;
+}
+
+.cart-item-note-input {
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: #0B0B0C;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-size: 0.78rem;
+    font-family: var(--font-body);
+}
+
+.cart-item-note-input::placeholder {
+    color: #71717A;
 }
 
 .cart-item-price {
-    font-size: 0.82rem;
-    color: var(--primary-gold);
-    font-weight: 700;
+    color: #F59E0B;
+    font-weight: 800;
+    font-size: 0.88rem;
+    margin-top: 6px;
+    display: block;
 }
 
-.cart-item-controls {
+.cart-controls {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.qty-btn {
-    width: 26px;
-    height: 26px;
+.cart-qty-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
     background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #FFFFFF;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-}
-
-.qty-val {
-    font-size: 0.88rem;
-    font-weight: 800;
-    min-width: 18px;
-    text-align: center;
-}
-
-.remove-btn {
-    background: transparent;
-    color: #EF4444;
-    padding: 4px;
-    margin-left: 4px;
-}
-
-.fulfillment-section {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 14px;
-    border-radius: var(--radius-sm);
-}
-
-.fulfillment-toggle {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.ful-btn {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #CBD5E1;
-    padding: 9px;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-}
-
-.ful-btn.active {
-    background: var(--primary-gold);
-    color: #0F172A;
-    border-color: var(--primary-gold);
-}
-
-.cart-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.form-group.hidden {
-    display: none;
-}
-
-.form-label {
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: #CBD5E1;
-}
-
-.form-input, .form-select, .form-textarea {
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #FFFFFF;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.88rem;
-}
-
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-    outline: none;
-    border-color: var(--primary-gold);
-}
-
-.form-select option {
-    background: #0F172A;
-    color: #FFFFFF;
-}
-
-.form-textarea {
-    resize: vertical;
-    min-height: 60px;
-}
-
-.pix-key-box {
-    background: rgba(56, 189, 248, 0.08);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    padding: 14px;
-    border-radius: var(--radius-sm);
-    text-align: center;
-}
-
-.pix-key-info span {
-    display: block;
-    font-size: 0.78rem;
-    color: #94A3B8;
-}
-
-.pix-key-info strong {
-    display: block;
     font-size: 1.1rem;
-    color: #38BDF8;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.cart-qty-btn:hover {
+    background: #F59E0B;
+    color: #000000;
+    border-color: #F59E0B;
+}
+
+.cart-qty-num {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #FFFFFF;
+    min-width: 38px;
+    text-align: center;
+}
+
+.cart-option-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #A1A1AA;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.delivery-toggle, .payment-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.del-btn, .pay-btn {
+    flex: 1;
+    padding: 11px 12px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-family: var(--font-heading);
+    background: #18181B;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #A1A1AA;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.del-btn:hover, .pay-btn:hover {
+    border-color: #F59E0B;
+    color: #FFFFFF;
+}
+
+.del-btn.active, .pay-btn.active {
+    border-color: #F59E0B;
+    color: #FFFFFF;
+    background: rgba(245, 158, 11, 0.25);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
+.input-dark {
+    width: 100%;
+    padding: 11px 14px;
+    background: #0B0B0C;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+}
+
+.input-dark:focus {
+    outline: none;
+    border-color: #F59E0B;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
+}
+
+/* Pix Lock Info Box with Dynamic QR Code */
+.pix-lock-box {
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: 8px;
+    padding: 14px;
+    margin-top: 10px;
+}
+
+.pix-lock-title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #10B981;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.pix-qr-container {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.pix-qr-code {
+    width: 86px;
+    height: 86px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    padding: 5px;
+    flex-shrink: 0;
+}
+
+.pix-qr-info {
+    flex: 1;
+}
+
+.pix-lock-desc {
+    font-size: 0.78rem;
+    color: #A1A1AA;
+    line-height: 1.4;
     margin-bottom: 8px;
 }
 
-.btn-pix-copy {
+/* COPIAR PIX BUTTON - CYAN ACCENT & SUCCESS GREEN STATE TRANSITION */
+.btn-copy-pix {
     width: 100%;
-    background: transparent;
-    border: 1px solid #38BDF8;
-    color: #38BDF8;
-    padding: 8px;
+    padding: 10px;
+    background: rgba(56, 189, 248, 0.12) !important;
+    border: 1px solid rgba(56, 189, 248, 0.4) !important;
+    color: #38BDF8 !important;
+    font-weight: 800;
+    font-family: var(--font-heading);
     border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    transition: var(--transition);
+    transition: all 0.25s ease;
+    user-select: none;
 }
 
-.cart-summary-box {
+.btn-copy-pix:hover {
+    background: #0284C7 !important;
+    color: #FFFFFF !important;
+    border-color: #0284C7 !important;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+}
+
+.btn-copy-pix.copied {
+    background: #10B981 !important;
+    color: #000000 !important;
+    border-color: #10B981 !important;
+    font-weight: 900;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.35);
+}
+
+.cart-summary {
     background: rgba(255, 255, 255, 0.03);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 14px;
@@ -1212,18 +1317,18 @@ button {
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    color: #CBD5E1;
+    color: #A1A1AA;
 }
 
-.summary-line.total-line {
+.summary-line.total {
     font-size: 1.15rem;
     font-weight: 900;
-    color: #FFFFFF;
+    color: #10B981;
     padding-top: 8px;
     border-top: 1px dashed rgba(255, 255, 255, 0.15);
 }
 
-.btn-submit-order {
+.btn-whatsapp {
     width: 100%;
     background: #25D366;
     color: #FFFFFF;
@@ -1235,14 +1340,26 @@ button {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 10px;
+    border: none;
+    cursor: pointer;
     box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
-    transition: var(--transition);
+    transition: all 0.25s ease;
 }
 
-.btn-submit-order:hover {
+.btn-whatsapp:hover {
     background: #20BA5A;
     transform: translateY(-2px);
+}
+
+.onira-signature {
+    padding: 14px 0;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #A1A1AA;
+}
+
+.onira-signature strong {
+    color: #F59E0B;
 }
 
 .btn-continue-choosing {
