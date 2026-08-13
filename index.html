@@ -127,25 +127,41 @@
                 <p class="section-subtitle">Tudo frito na hora com ingredientes frescos e massa artesanal crocante</p>
             </div>
 
+            <!-- Official Board Menu Banner Callout -->
+            <div class="menu-board-banner" style="background: rgba(255,107,0,0.06); border: 1px dashed rgba(255,107,0,0.3); border-radius: 16px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="background: var(--primary); color: white; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="image" style="width: 22px; height: 22px;"></i>
+                    </div>
+                    <div>
+                        <strong style="color: var(--text-dark); font-size: 1.05rem; display: block;">Cardápio Oficial de Balcão</strong>
+                        <p style="margin: 2px 0 0 0; color: #666; font-size: 0.9rem;">Preços e itens atualizados diretamente da placa oficial da Pastelaria São José.</p>
+                    </div>
+                </div>
+                <a href="assets/cardapio_saojose.webp" target="_blank" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.88rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Ver Placa do Cardápio
+                </a>
+            </div>
+
             <!-- Category Filter Pills -->
             <div class="category-pills">
                 <button class="cat-pill active" onclick="filterCategory('all', this)">
                     <i data-lucide="grid"></i> Todos os Itens
                 </button>
-                <button class="cat-pill" onclick="filterCategory('especiais', this)">
-                    <i data-lucide="star"></i> Pastéis Salgados
+                <button class="cat-pill" onclick="filterCategory('carne', this)">
+                    <i data-lucide="flame"></i> Pastéis de Carne
                 </button>
-                <button class="cat-pill" onclick="filterCategory('bolos', this)">
-                    <i data-lucide="flame"></i> Bolos da Casa
+                <button class="cat-pill" onclick="filterCategory('especiais', this)">
+                    <i data-lucide="star"></i> Pastéis Salgados M
                 </button>
                 <button class="cat-pill" onclick="filterCategory('doces', this)">
                     <i data-lucide="heart"></i> Pastéis Doces
                 </button>
-                <button class="cat-pill" onclick="filterCategory('porcoes', this)">
-                    <i data-lucide="package"></i> Porções
+                <button class="cat-pill" onclick="filterCategory('outros', this)">
+                    <i data-lucide="package"></i> Salgados &amp; Outros
                 </button>
                 <button class="cat-pill" onclick="filterCategory('bebidas', this)">
-                    <i data-lucide="cup-soda"></i> Caldo de Cana &amp; Bebidas
+                    <i data-lucide="cup-soda"></i> Bebidas &amp; Cafés
                 </button>
             </div>
 

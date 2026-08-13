@@ -4,165 +4,215 @@ const CLIENT_WHATSAPP = '555432234075';
 const CLIENT_PIX_KEY = '(54) 3223-4075';
 
 const PRODUCTS = [
-    // Pastéis Salgados Especiais
+    // Pastéis de Carne
     {
-        id: 'sj-esp',
-        title: 'Pastel São José Especial',
-        category: 'especiais',
-        price: 16.00,
-        desc: 'O carro-chefe da casa! Carne de panela desfiada e temperada, queijo colonial derretido, ovo picado e azeitonas verdes fatiadas em massa crocante.',
+        id: 'sj-carne-p',
+        title: 'Pastel de Carne (P)',
+        category: 'carne',
+        price: 12.50,
+        desc: 'Recheio farto de carne moída de primeira refogada com temperos caseiros, cebola e alho, tamanho Pequeno.',
         image: 'assets/pastel_carne.png',
-        badge: 'Mais Pedido ★',
-        rating: '5.0'
-    },
-    {
-        id: 'sj-carne',
-        title: 'Pastel de Carne Tradicional',
-        category: 'especiais',
-        price: 13.00,
-        desc: 'Receita tradicional São José. Carne moída de primeira refogada com temperos caseiros, cebola e alho, frito na hora douradinho.',
-        image: 'assets/pastel1.jpg',
         badge: 'Tradicional',
         rating: '4.9'
     },
     {
-        id: 'sj-queijo',
-        title: 'Pastel de Queijo Colonial',
+        id: 'sj-carne-m',
+        title: 'Pastel de Carne (M)',
+        category: 'carne',
+        price: 14.50,
+        desc: 'Recheio farto de carne moída de primeira refogada com temperos caseiros, cebola e alho, tamanho Médio.',
+        image: 'assets/pastel_carne.png',
+        badge: 'Mais Pedido ★',
+        rating: '5.0'
+    },
+
+    // Pastéis Salgados Especiais (Tamanho M)
+    {
+        id: 'sj-carne-queijo',
+        title: 'Pastel de Carne e Queijo',
         category: 'especiais',
-        price: 13.00,
-        desc: 'Recheio farto de queijo colonial típico da Serra Gaúcha, derretendo a cada mordida em uma massa sequinha.',
-        image: 'assets/pastel_queijo.png',
+        price: 17.90,
+        desc: 'Deliciosa carne moída temperada combinada com generosa camada de queijo colonial derretido.',
+        image: 'assets/pastel1.jpg',
         badge: 'Favorito',
         rating: '4.9'
     },
     {
-        id: 'sj-frango',
-        title: 'Pastel de Frango com Catupiry',
+        id: 'sj-carne-azeitona',
+        title: 'Pastel de Carne e Azeitona',
         category: 'especiais',
-        price: 15.00,
-        desc: 'Peito de frango desfiado temperado com ervas finas e generosa camada de Catupiry cremoso original.',
-        image: 'assets/pastel2.jpg',
+        price: 17.90,
+        desc: 'Carne moída refogada com tempero artesanal e azeitonas verdes fatiadas.',
+        image: 'assets/pastel_carne.png',
         badge: '',
         rating: '4.8'
     },
     {
-        id: 'sj-calabresa',
-        title: 'Pastel de Calabresa com Queijo',
+        id: 'sj-queijo',
+        title: 'Pastel de Queijo',
         category: 'especiais',
-        price: 14.00,
-        desc: 'Calabresa fatiada e salteada com queijo colonial e pitada de orégano.',
+        price: 17.90,
+        desc: 'Recheio farto de queijo derretido a cada mordida em massa crocante e sequinha.',
+        image: 'assets/pastel_queijo.png',
+        badge: 'Clássico',
+        rating: '4.9'
+    },
+    {
+        id: 'sj-queijo-presunto',
+        title: 'Pastel de Queijo c/ Presunto',
+        category: 'especiais',
+        price: 17.90,
+        desc: 'Fatias de presunto de primeira com queijo colonial derretido.',
         image: 'assets/pastel3.jpg',
         badge: '',
         rating: '4.8'
     },
     {
-        id: 'sj-bauru',
-        title: 'Pastel de Bauru São José',
+        id: 'sj-frango',
+        title: 'Pastel de Frango',
         category: 'especiais',
-        price: 14.00,
-        desc: 'Presunto de alta qualidade, queijo derretido, rodelas de tomate fresco e tempero especial.',
-        image: 'assets/pastel1.jpg',
+        price: 17.90,
+        desc: 'Peito de frango desfiado bem temperado na massa douradinha e crocante.',
+        image: 'assets/pastel2.jpg',
         badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'sj-frango-queijo',
+        title: 'Pastel de Frango e Queijo',
+        category: 'especiais',
+        price: 17.90,
+        desc: 'Frango desfiado suculento envolvido por queijo colonial derretido.',
+        image: 'assets/pastel2.jpg',
+        badge: 'Sucesso',
+        rating: '4.9'
+    },
+    {
+        id: 'sj-palmito',
+        title: 'Pastel de Palmito',
+        category: 'especiais',
+        price: 17.90,
+        desc: 'Palmito nobre picadinho e suavemente temperado.',
+        image: 'assets/pastel1.jpg',
+        badge: 'Opção Veggie',
         rating: '4.7'
     },
     {
-        id: 'sj-alho-poro',
-        title: 'Pastel de Queijo com Alho-Poró',
+        id: 'sj-palmito-queijo',
+        title: 'Pastel de Palmito c/ Queijo',
         category: 'especiais',
-        price: 15.00,
-        desc: 'Combinação refinada de queijo colonial derretido com alho-poró suavemente refogado na manteiga.',
+        price: 17.90,
+        desc: 'Palmito nobre picado acompanhado de queijo derretido quentinho.',
         image: 'assets/pastel_queijo.png',
-        badge: 'Destaque',
-        rating: '4.9'
-    },
-    {
-        id: 'sj-veg',
-        title: 'Pastel Vegetariano Especial',
-        category: 'especiais',
-        price: 15.00,
-        desc: 'Palmito nobre picado, milho verde, ervilhas frescas, queijo colonial e tomates fatiados.',
-        image: 'assets/pastel2.jpg',
-        badge: 'Opção Veggie',
+        badge: '',
         rating: '4.8'
     },
-
-    // Bolos Fritos da Casa
     {
-        id: 'bolo-carne',
-        title: 'Bolo de Carne Tradicional São José',
-        category: 'bolos',
-        price: 12.00,
-        desc: 'Especialidade histórica da São José! Porção de bolo de carne moída temperada, empanada com casquinha crocante e frita na hora.',
-        image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?auto=format&fit=crop&w=800&q=80',
-        badge: 'Especialidade da Casa ★',
+        id: 'sj-calabresa',
+        title: 'Pastel de Calabresa',
+        category: 'especiais',
+        price: 17.90,
+        desc: 'Calabresa moída/fatiada e douradinha com tempero especial.',
+        image: 'assets/pastel3.jpg',
+        badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'sj-frango-catupiry',
+        title: 'Pastel de Frango c/ Catupiry',
+        category: 'especiais',
+        price: 17.90,
+        desc: 'Frango desfiado temperado com camada farta de Catupiry cremoso original.',
+        image: 'assets/pastel2.jpg',
+        badge: 'Destaque ★',
         rating: '5.0'
     },
-    {
-        id: 'bolo-queijo',
-        title: 'Bolo de Queijo Colonial',
-        category: 'bolos',
-        price: 12.00,
-        desc: 'Bolo artesanal empanado recheado com queijo gaúcho selecionado, frito bem dourado e quentinho.',
-        image: 'assets/empanadas.jpeg',
-        badge: 'Imperdível',
-        rating: '4.9'
-    },
 
-    // Pastéis Doces
+    // Pastéis Doces (Tamanho M)
     {
-        id: 'sj-choc-morango',
-        title: 'Pastel de Chocolate com Morango',
+        id: 'sj-choc-preto',
+        title: 'Pastel de Chocolate Preto',
         category: 'doces',
-        price: 15.00,
-        desc: 'Massa crocante recheada com bastante chocolate ao leite cremoso e morangos frescos fatiados.',
+        price: 17.90,
+        desc: 'Massa crocante recheada com bastante chocolate ao leite cremoso derretido.',
         image: 'assets/pastel_doce.png',
-        badge: 'Doce Mais Pedido',
+        badge: 'Doce Mais Pedido ★',
         rating: '5.0'
     },
     {
-        id: 'sj-doce-leite-banana',
-        title: 'Pastel Doce de Leite com Banana & Canela',
+        id: 'sj-banana-canela',
+        title: 'Pastel de Banana c/ Canela',
         category: 'doces',
-        price: 14.00,
-        desc: 'Doce de leite artesanal gaúcho com pedaços de banana e um toque de canela polvilhada.',
+        price: 17.90,
+        desc: 'Bananadas fatiadas com canela polvilhada e toque de açúcar artesanal.',
         image: 'assets/doce.jpg',
         badge: '',
         rating: '4.9'
     },
     {
-        id: 'sj-romeu-julieta',
-        title: 'Pastel Romeu & Julieta',
+        id: 'sj-prestigio',
+        title: 'Pastel de Prestígio',
         category: 'doces',
-        price: 14.00,
-        desc: 'A clássica combinação de goiabada cascão cremosa com queijo colonial derretido.',
+        price: 17.90,
+        desc: 'Recheio irresistível de chocolate cremoso com coco ralado fresco.',
+        image: 'assets/pastel_doce.png',
+        badge: 'Especial',
+        rating: '4.9'
+    },
+    {
+        id: 'sj-choc-queijo',
+        title: 'Pastel de Chocolate c/ Queijo',
+        category: 'doces',
+        price: 17.90,
+        desc: 'Mistura agridoce incrível de chocolate ao leite derretido com queijo salgadinho.',
         image: 'assets/pastel_doce.png',
         badge: '',
         rating: '4.8'
     },
-
-    // Porções
     {
-        id: 'porcao-mini-pasteis',
-        title: 'Porção de Mini Pastéis Mistos (10 un.)',
-        category: 'porcoes',
-        price: 28.00,
-        desc: '10 mini pastéis crocantes fritos na hora com recheios sortidos (carne, queijo e frango). Acompanha molho da casa.',
-        image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80',
-        badge: 'Para Compartilhar',
+        id: 'sj-goiabada-queijo',
+        title: 'Pastel de Goiabada c/ Queijo',
+        category: 'doces',
+        price: 17.90,
+        desc: 'O autêntico Romeu & Julieta com goiabada cascão e queijo colonial derretido.',
+        image: 'assets/doce.jpg',
+        badge: 'Tradicional',
+        rating: '4.9'
+    },
+
+    // Salgados & Outros da Casa
+    {
+        id: 'sj-enroladinho',
+        title: 'Enroladinho',
+        category: 'outros',
+        price: 6.00,
+        desc: 'Salgado tradicional da casa, massa leve com recheio saboroso frito na hora.',
+        image: 'assets/empanadas.jpeg',
+        badge: '',
+        rating: '4.7'
+    },
+    {
+        id: 'sj-grostoli',
+        title: 'Grostoli / Cueca Virada',
+        category: 'outros',
+        price: 5.00,
+        desc: 'Grostoli artesanal da casa, massa sequinha polvilhada com açúcar e canela.',
+        image: 'assets/doce.jpg',
+        badge: 'Receita da Vovó',
         rating: '4.9'
     },
     {
-        id: 'porcao-fritas',
-        title: 'Porção de Batata Frita Crocante (400g)',
-        category: 'porcoes',
-        price: 20.00,
-        desc: 'Batatas palito sequinhas e crocantes com salmoura na medida certa. Acompanha maionese temperada artesanal.',
-        image: 'assets/fritas.jpg',
+        id: 'sj-pao-queijo',
+        title: 'Pão de Queijo',
+        category: 'outros',
+        price: 5.00,
+        desc: 'Pão de queijo quentinho e macio com crosta dourada.',
+        image: 'assets/empanadas.jpeg',
         badge: '',
         rating: '4.8'
     },
 
-    // Caldo de Cana & Bebidas
+    // Bebidas, Cafés & Caldo de Cana
     {
         id: 'caldo-cana-puro',
         title: 'Caldo de Cana Geladinho (400ml)',
@@ -170,54 +220,113 @@ const PRODUCTS = [
         price: 8.00,
         desc: 'Moído na hora a partir de cana-de-açúcar fresca e servido trincando de gelado. O par perfeito do pastel!',
         image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80',
-        badge: 'Combinação Perfeita ★',
+        badge: 'Par Perfeito ★',
         rating: '5.0'
     },
     {
-        id: 'caldo-cana-limao',
-        title: 'Caldo de Cana com Limão (400ml)',
+        id: 'cafe-pequeno',
+        title: 'Café Pequeno',
         category: 'bebidas',
-        price: 9.00,
-        desc: 'Garapa de cana moída na hora com toque de limão taiti espremido na hora. Refrescante!',
-        image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80',
-        badge: 'Refrescante',
+        price: 3.50,
+        desc: 'Café expresso/passado na hora bem quentinho.',
+        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.7'
+    },
+    {
+        id: 'cafe-medio',
+        title: 'Café Médio',
+        category: 'bebidas',
+        price: 5.00,
+        desc: 'Xícara média de café aromático recém-passado.',
+        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'cafe-taca',
+        title: 'Café Taça',
+        category: 'bebidas',
+        price: 5.50,
+        desc: 'Café especial servido na taça com aroma marcante.',
+        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80',
+        badge: '',
         rating: '4.9'
     },
     {
-        id: 'suco-natural',
-        title: 'Suco Natural da Fruta (400ml)',
+        id: 'refri-medio',
+        title: 'Refrigerante Copo Médio',
         category: 'bebidas',
-        price: 10.00,
-        desc: 'Opções de Laranja natural, Morango com água ou Abacaxi com hortelã. Feito na hora.',
-        image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
-        badge: '',
-        rating: '4.8'
-    },
-    {
-        id: 'cerveja-latao',
-        title: 'Cerveja Gelada Latão (473ml)',
-        category: 'bebidas',
-        price: 9.00,
-        desc: 'Skol, Brahma ou Antarctica trincando de gelada para acompanhar seu pastel.',
-        image: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80',
-        badge: '',
-        rating: '4.8'
-    },
-    {
-        id: 'refrigerante-lata',
-        title: 'Refrigerante Lata (350ml)',
-        category: 'bebidas',
-        price: 7.00,
-        desc: 'Coca-Cola, Coca Zero, Guaraná Antarctica ou Sprite lata trincando.',
+        price: 6.00,
+        desc: 'Refrigerante bem gelado servido no copo médio.',
         image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
         badge: '',
         rating: '4.7'
+    },
+    {
+        id: 'refri-lata',
+        title: 'Refrigerante Lata (350ml)',
+        category: 'bebidas',
+        price: 7.00,
+        desc: 'Coca-Cola, Guaraná Antarctica, Sprite ou Fanta lata geladinha.',
+        image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'refri-600',
+        title: 'Refrigerante 600ml',
+        category: 'bebidas',
+        price: 8.00,
+        desc: 'Garrafa 600ml trincando de gelada.',
+        image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'refri-2l',
+        title: 'Refrigerante 2 Litros',
+        category: 'bebidas',
+        price: 15.00,
+        desc: 'Garrafa 2L gelada para a família inteira.',
+        image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.8'
+    },
+    {
+        id: 'suco-lata',
+        title: 'Suco Lata',
+        category: 'bebidas',
+        price: 7.00,
+        desc: 'Suco de lata saboroso e gelado.',
+        image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.7'
+    },
+    {
+        id: 'suco-pet',
+        title: 'Suco PET 500ml',
+        category: 'bebidas',
+        price: 7.00,
+        desc: 'Suco engarrafado 500ml bem gelado.',
+        image: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.7'
+    },
+    {
+        id: 'agua-mineral',
+        title: 'Água Mineral (500ml)',
+        category: 'bebidas',
+        price: 3.50,
+        desc: 'Água mineral geladinha, com ou sem gás.',
+        image: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?auto=format&fit=crop&w=800&q=80',
+        badge: '',
+        rating: '4.8'
     }
 ];
 
 // State
 let cart = [];
-let fulfillmentType = 'delivery'; // 'delivery' or 'pickup'
 let currentCategory = 'all';
 
 // Initialize
@@ -274,32 +383,7 @@ window.filterCategory = function(cat, element) {
     renderProducts();
 };
 
-// Cart Operations
-window.addToCart = function(productId) {
-    const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return;
-
-    const existing = cart.find(item => item.id === productId);
-    if (existing) {
-        existing.qty += 1;
-    } else {
-        cart.push({ ...product, qty: 1 });
-    }
-
-    updateCartUI();
-    showToast(`🥟 <strong>${product.title}</strong> foi adicionado ao seu carrinho!`);
-};
-
-window.updateQty = function(productId, delta) {
-    const item = cart.find(i => i.id === productId);
-    if (!item) return;
-
-    item.qty += delta;
-    if (item.qty <= 0) {
-        cart = cart.filter(i => i.id !== productId);
-    }
-
-// --- CLAEM MASTER TEMPLATE CART LOGIC FOR SÃO JOSÉ ---
+// --- SÃO JOSÉ CART ENGINE LOGIC ---
 let fulfillmentType = 'delivery';
 let selectedPayment = 'Pix (Chave Copia e Cola)';
 const deliveryFee = 6.00;
@@ -308,24 +392,18 @@ const PIX_KEY_SAO_JOSE = '(54) 3223-4075';
 
 // Add Item to Cart
 window.addToCart = function(itemId) {
-    const item = MENU_DATA.find(i => i.id === itemId);
+    const item = PRODUCTS.find(i => i.id === itemId);
     if (!item) return;
 
-    const size = selectedSizes[itemId] || 'P';
-    const price = item.prices ? item.prices[size] : item.price;
-    const sizeLabel = size === 'P' ? 'Médio' : 'Grande';
-
-    const itemTitle = item.title + (item.hasSizes !== false ? ` (${sizeLabel})` : '');
-    const existing = cart.find(c => c.id === itemId && c.size === sizeLabel);
+    const existing = cart.find(c => c.id === itemId);
 
     if (existing) {
         existing.quantity += 1;
     } else {
         cart.push({
             id: item.id,
-            title: itemTitle,
-            size: sizeLabel,
-            price: price,
+            title: item.title,
+            price: item.price,
             quantity: 1,
             notes: ''
         });
@@ -333,7 +411,7 @@ window.addToCart = function(itemId) {
 
     updateCartUI();
     openCart();
-    showToast(`🥟 <strong>${itemTitle}</strong> foi adicionado ao seu carrinho!`);
+    showToast(`🥟 <strong>${item.title}</strong> foi adicionado ao seu carrinho!`);
 };
 
 function updateItemNotes(index, val) {

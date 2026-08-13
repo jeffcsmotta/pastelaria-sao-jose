@@ -53,8 +53,8 @@
         }
 
         .proposal-nav {
-            background: #FFFFFF;
-            border-bottom: 1px solid var(--border);
+            background: #0F172A;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding: 16px 0;
             position: sticky;
             top: 0;
@@ -75,10 +75,15 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            color: var(--primary);
+            color: #F59E0B;
             font-weight: 700;
             font-size: 0.9rem;
             text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #FBBF24;
         }
 
         .hero-proposal {
