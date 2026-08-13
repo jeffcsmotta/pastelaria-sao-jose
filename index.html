@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelaria São José | Pastéis Crocantes &amp; Caldo de Cana em Caxias do Sul</title>
+    <meta name="description" content="🥟 Pastelaria São José — Pastéis crocantes fritos na hora, bolos de carne e queijo, caldo de cana geladinho e porções no bairro Exposição em Caxias do Sul. Pedidos via WhatsApp!">
+    <meta name="keywords" content="Pastelaria São José, Pastelaria Caxias do Sul, Pastel Exposição, Caldo de Cana Caxias, Bolo de Carne Caxias do Sul, Delivery Pastel Caxias">
+
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Pastelaria São José | Pastéis Crocantes &amp; Caldo de Cana">
+    <meta property="og:description" content="Tradição e sabor em Caxias do Sul. Pastéis recheados e fritos na hora, bolos da casa e caldo de cana geladinho. Faça seu pedido!">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-regular">
+
+    <!-- Top Announcement Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-info">
+                <span><i data-lucide="map-pin"></i> Rua Garibaldi, 1477 - Bairro Exposição, Caxias do Sul - RS</span>
+                <span class="divider">|</span>
+                <span><i data-lucide="clock"></i> Seg a Sex: 08h30 às 19h00 | Sáb: 08h30 às 13h00</span>
+                <span class="divider">|</span>
+                <span><i data-lucide="sparkles"></i> Pastéis &amp; Bolos Fritos na Hora</span>
+            </div>
+            <div class="top-contacts">
+                <a href="https://wa.me/555432234075" target="_blank" class="top-wa">
+                    <i data-lucide="phone"></i>
+                    <span>Telefone / WhatsApp: (54) 3223-4075</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="assets/logo.svg" alt="Pastelaria São José Logo" class="brand-logo-img">
+            </a>
+
+            <nav class="nav-links">
+                <a href="#cardapio" class="nav-link active">Cardápio</a>
+                <a href="#bio-links" class="nav-link">Acesso Rápido</a>
+                <a href="#sobre" class="nav-link">Nossa História</a>
+                <a href="#diferenciais" class="nav-link">Diferenciais</a>
+                <a href="#avaliacoes" class="nav-link">Avaliações</a>
+                <a href="#contato" class="nav-link">Localização</a>
+            </nav>
+
+            <div class="header-actions">
+                <div id="status-badge" class="status-badge open">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Aberto Agora • Delivery &amp; Balcão</span>
+                </div>
+                <button class="cart-toggle-btn" id="cart-toggle" onclick="window.toggleCartDrawer(true)">
+                    <i data-lucide="shopping-bag"></i>
+                    <span class="cart-count" id="cart-badge-count">0</span>
+                    <span class="cart-total-header" id="cart-total-header">R$ 0,00</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <i data-lucide="sparkles"></i> TRADIÇÃO EM CAXIAS DO SUL • BAIRRO EXPOSIÇÃO
+            </div>
+            <h1 class="hero-title">
+                Pastéis sequinhos, recheio farto e <br>
+                <span class="highlight">Caldo de Cana geladinho! 🥟</span>
+            </h1>
+            <p class="hero-description">
+                Massa artesanal leve e crocante, recheada generosamente com carnes selecionadas, queijo colonial derretido e tempero caseiro inconfundível. Venha saborear nossos tradicionais bolos de carne ou peça no WhatsApp!
+            </p>
+            <div class="hero-buttons">
+                <a href="#cardapio" class="btn btn-primary">
+                    <i data-lucide="utensils"></i> Ver Cardápio &amp; Pedir
+                </a>
+                <a href="https://wa.me/555432234075?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido%20na%20Pastelaria%20S%C3%A3o%20Jos%C3%A9." target="_blank" class="btn btn-whatsapp">
+                    <i data-lucide="phone"></i> Pedir pelo WhatsApp (54) 3223-4075
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Strip -->
+    <section class="bio-quick-strip" id="bio-links">
+        <div class="container">
+            <div class="bio-buttons-flex">
+                <a href="#cardapio" class="bio-btn highlight">
+                    <i data-lucide="shopping-bag"></i> Cardápio Online &amp; Pedidos
+                </a>
+                <a href="https://wa.me/555432234075?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20as%20op%C3%A7%C3%B5es%20do%20dia." target="_blank" class="bio-btn">
+                    <i data-lucide="message-circle"></i> Falar com Atendimento
+                </a>
+                <a href="https://www.google.com/maps/place/Pastelaria+S%C3%A3o+Jos%C3%A9/@-29.1745942,-51.1825685,20z" target="_blank" class="bio-btn">
+                    <i data-lucide="map-pin"></i> Como Chegar (Garibaldi, 1477)
+                </a>
+                <a href="proposta.html" target="_blank" class="bio-btn proposal-link">
+                    <i data-lucide="sparkles"></i> Proposta de Site (Onira Labs)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Catalog / Menu Section -->
+    <section class="menu-section" id="cardapio">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag"><i data-lucide="utensils-crossed"></i> NOSSO CARDÁPIO</span>
+                <h2 class="section-title">Escolha suas delícias favoritas</h2>
+                <p class="section-subtitle">Tudo frito na hora com ingredientes frescos e massa artesanal crocante</p>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div class="category-pills">
+                <button class="cat-pill active" onclick="filterCategory('all', this)">
+                    <i data-lucide="grid"></i> Todos os Itens
+                </button>
+                <button class="cat-pill" onclick="filterCategory('especiais', this)">
+                    <i data-lucide="star"></i> Pastéis Salgados
+                </button>
+                <button class="cat-pill" onclick="filterCategory('bolos', this)">
+                    <i data-lucide="flame"></i> Bolos da Casa
+                </button>
+                <button class="cat-pill" onclick="filterCategory('doces', this)">
+                    <i data-lucide="heart"></i> Pastéis Doces
+                </button>
+                <button class="cat-pill" onclick="filterCategory('porcoes', this)">
+                    <i data-lucide="package"></i> Porções
+                </button>
+                <button class="cat-pill" onclick="filterCategory('bebidas', this)">
+                    <i data-lucide="cup-soda"></i> Caldo de Cana &amp; Bebidas
+                </button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="product-grid">
+                <!-- Injected dynamically via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="sobre">
+        <div class="container about-grid">
+            <div class="about-content">
+                <span class="section-tag"><i data-lucide="award"></i> TRADIÇÃO &amp; AFETO</span>
+                <h2 class="section-title">A Pastelaria São José</h2>
+                <p class="about-text">
+                    Localizada na tradicional <strong>Rua Garibaldi, 1477</strong> no bairro Exposição, a Pastelaria São José é ponto de encontro de quem aprecia um bom pastel frito na hora, crocante, sequinho e com recheio farto.
+                </p>
+                <p class="about-text">
+                    Nosso segredo está no carinho da produção artesanal: massa leve preparada diariamente, ingredientes selecionados da Serra Gaúcha e os famosos <strong>Bolos de Carne e Queijo</strong> que já conquistaram gerações em Caxias do Sul.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <span class="stat-num">4.7★</span>
+                        <span class="stat-lbl">Nota no Google Maps</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">100%</span>
+                        <span class="stat-lbl">Massa Frita na Hora</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">+30</span>
+                        <span class="stat-lbl">Opções de Cardápio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="about-media">
+                <div class="media-box">
+                    <img src="assets/pastel1.jpg" alt="Pastel São José frito na hora" class="about-img main-img">
+                    <div class="media-badge">
+                        <i data-lucide="check-circle-2"></i> Caldo de cana moído na hora
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentials Section -->
+    <section class="differentials-section" id="diferenciais">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag"><i data-lucide="sparkles"></i> POR QUE ESCOLHER A SÃO JOSÉ</span>
+                <h2 class="section-title">Diferenciais que fazem a diferença</h2>
+            </div>
+            <div class="diff-grid">
+                <div class="diff-card">
+                    <div class="diff-icon"><i data-lucide="flame"></i></div>
+                    <h3>Frito na Hora Exata</h3>
+                    <p>Seu pastel ou bolo é preparado e frito somente no momento do pedido. Nada de estufa!</p>
+                </div>
+                <div class="diff-card">
+                    <div class="diff-icon"><i data-lucide="sparkles"></i></div>
+                    <h3>Massa Leve e Sequinha</h3>
+                    <p>Massa artesanal dourada e crocante sem excesso de óleo, mantendo a leveza perfeita.</p>
+                </div>
+                <div class="diff-card">
+                    <div class="diff-icon"><i data-lucide="heart-handshake"></i></div>
+                    <h3>Recheios Generosos</h3>
+                    <p>Carnes temperadas na medida certa, queijo colonial gaúcho de qualidade e muito sabor.</p>
+                </div>
+                <div class="diff-card">
+                    <div class="diff-icon"><i data-lucide="truck"></i></div>
+                    <h3>Delivery Rápido</h3>
+                    <p>Receba em casa quentinho e crocante ou retire no balcão sem filas na Rua Garibaldi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section" id="avaliacoes">
+        <div class="container">
+            <div class="section-header center">
+                <span class="section-tag"><i data-lucide="star"></i> AVALIAÇÕES REAIS</span>
+                <h2 class="section-title">O que nossos clientes dizem</h2>
+                <p class="section-subtitle">Avaliação 4.7★ no Google com mais de 120 opiniões de clientes satisfeitos</p>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-quote">"O pastel é disparado o melhor do bairro Exposição! Massa super crocante, carne de panela muito bem temperada e o caldo de cana é geladinho. Atendimento nota 10!"</p>
+                    <div class="review-author">
+                        <div class="author-avatar">MS</div>
+                        <div>
+                            <strong class="author-name">Marcos Santos</strong>
+                            <span class="author-loc">Caxias do Sul - RS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-quote">"Os bolos de carne e queijo da Pastelaria São José são tradição na família. Sempre sequinhos, recheio caprichado e preço super justo. Recomendo muito!"</p>
+                    <div class="review-author">
+                        <div class="author-avatar">CL</div>
+                        <div>
+                            <strong class="author-name">Camila Lima</strong>
+                            <span class="author-loc">Caxias do Sul - RS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-quote">"Lugar acolhedor na Garibaldi! O pastel especial da casa acompanhado de um caldo de cana com limão é a combinação perfeita para o final de tarde."</p>
+                    <div class="review-author">
+                        <div class="author-avatar">PR</div>
+                        <div>
+                            <strong class="author-name">Paulo Roberto</strong>
+                            <span class="author-loc">Caxias do Sul - RS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact Section -->
+    <section class="location-section" id="contato">
+        <div class="container location-grid">
+            <div class="location-info">
+                <span class="section-tag"><i data-lucide="map-pin"></i> ONDE ESTAMOS</span>
+                <h2 class="section-title">Venha nos visitar no Bairro Exposição</h2>
+                
+                <div class="info-list">
+                    <div class="info-item">
+                        <div class="info-icon"><i data-lucide="map-pin"></i></div>
+                        <div>
+                            <strong>Endereço:</strong>
+                            <p>Rua Garibaldi, 1477 - Bairro Exposição, Caxias do Sul - RS</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i data-lucide="clock"></i></div>
+                        <div>
+                            <strong>Horário de Funcionamento:</strong>
+                            <p>Segunda a Sexta: 08h30 às 19h00<br>Sábado: 08h30 às 13h00<br>Domingo: Fechado</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i data-lucide="phone"></i></div>
+                        <div>
+                            <strong>Atendimento &amp; WhatsApp:</strong>
+                            <p>(54) 3223-4075</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="location-actions">
+                    <a href="https://wa.me/555432234075" target="_blank" class="btn btn-whatsapp">
+                        <i data-lucide="phone"></i> Chamar no WhatsApp
+                    </a>
+                    <a href="https://www.google.com/maps/place/Pastelaria+S%C3%A3o+Jos%C3%A9/@-29.1745942,-51.1825685,20z" target="_blank" class="btn btn-secondary">
+                        <i data-lucide="navigation"></i> Abrir no Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <div class="location-map">
+                <iframe 
+                    title="Mapa Pastelaria São José"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d870.9231846937248!2d-51.1827039!3d-29.1744801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x951ea3bcad70b413%3A0x6e9d0f86d98b29d7!2sPastelaria%20S%C3%A3o%20Jos%C3%A9!5e0!3m2!1spt-BR!2sbr!4v1715000000000!5m2!1spt-BR!2sbr" 
+                    width="100%" 
+                    height="380" 
+                    style="border:0; border-radius: 16px;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <img src="assets/logo.svg" alt="Pastelaria São José Logo" class="footer-logo">
+                <p>O tradicional sabor de pastel frito na hora e bolo caseiro no bairro Exposição em Caxias do Sul.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navegação</h4>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#sobre">Nossa História</a>
+                <a href="#diferenciais">Diferenciais</a>
+                <a href="#avaliacoes">Avaliações</a>
+                <a href="#contato">Contato</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p><i data-lucide="map-pin"></i> Rua Garibaldi, 1477 - Exposição</p>
+                <p><i data-lucide="phone"></i> (54) 3223-4075</p>
+                <p><i data-lucide="clock"></i> Seg a Sex: 08h30 - 19h | Sáb: 08h30 - 13h</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <p>© 2026 Pastelaria São José. Todos os direitos reservados.</p>
+                <p class="credits">Desenvolvido por <strong style="color:#F59E0B;">Onira Labs</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Drawer -->
+    <div class="cart-drawer-overlay" id="cart-overlay" onclick="window.toggleCartDrawer(false)"></div>
+    <aside class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <div class="cart-header-title">
+                <i data-lucide="shopping-bag"></i>
+                <h3 style="color:#FFFFFF; font-weight:800; font-size:1.25rem;">Seu Pedido • Pastelaria São José</h3>
+            </div>
+            <button class="cart-close-btn" onclick="window.toggleCartDrawer(false)">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <div class="cart-body">
+            <!-- Items Container -->
+            <div class="cart-items-container" id="cart-items-list">
+                <!-- Cart items dynamically rendered -->
+            </div>
+
+            <!-- Fulfillment Toggle -->
+            <div class="fulfillment-section">
+                <label class="form-label">Forma de Entrega / Retirada:</label>
+                <div class="fulfillment-toggle">
+                    <button type="button" class="ful-btn active" id="ful-delivery" onclick="setFulfillment('delivery')">
+                        <i data-lucide="truck"></i> Tele-Entrega
+                    </button>
+                    <button type="button" class="ful-btn" id="ful-pickup" onclick="setFulfillment('pickup')">
+                        <i data-lucide="store"></i> Retirar no Balcão
+                    </button>
+                </div>
+            </div>
+
+            <!-- Customer Details Form -->
+            <div class="cart-form">
+                <div class="form-group">
+                    <label for="cust-name" class="form-label">Nome Completo:</label>
+                    <input type="text" id="cust-name" class="form-input" placeholder="Digite seu nome completo...">
+                </div>
+                
+                <div class="form-group" id="address-group">
+                    <label for="cust-address" class="form-label">Endereço Completo de Entrega:</label>
+                    <input type="text" id="cust-address" class="form-input" placeholder="Rua, número, complemento e bairro...">
+                </div>
+
+                <div class="form-group">
+                    <label for="payment-method" class="form-label">Forma de Pagamento:</label>
+                    <select id="payment-method" class="form-select" onchange="onPaymentChange(this.value)">
+                        <option value="pix">Pix (Chave com desconto ou Copia e Cola)</option>
+                        <option value="card">Cartão de Crédito / Débito (Máquina)</option>
+                        <option value="cash">Dinheiro na Entrega</option>
+                    </select>
+                </div>
+
+                <div class="form-group hidden" id="change-group">
+                    <label for="cash-change" class="form-label">Troco para quanto?</label>
+                    <input type="text" id="cash-change" class="form-input" placeholder="Ex: R$ 50,00 ou R$ 100,00">
+                </div>
+
+                <div class="form-group">
+                    <label for="order-obs" class="form-label">Observações do Pedido (Opcional):</label>
+                    <textarea id="order-obs" class="form-textarea" placeholder="Ex: Pastel sem maionese, maionese extra, caprichar na pimenta..."></textarea>
+                </div>
+            </div>
+
+            <!-- Pix Key Copy Section -->
+            <div class="pix-key-box" id="pix-key-box">
+                <div class="pix-key-info">
+                    <span>Chave Pix CNPJ / Celular:</span>
+                    <strong>(54) 3223-4075</strong>
+                </div>
+                <button type="button" class="btn-pix-copy" id="btn-pix-copy" onclick="copyPixKey()">
+                    <i data-lucide="copy"></i> Copiar Chave Pix
+                </button>
+            </div>
+
+            <!-- Summary & Submit CTA -->
+            <div class="cart-summary-box">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <strong id="summary-subtotal">R$ 0,00</strong>
+                </div>
+                <div class="summary-line" id="summary-delivery-line">
+                    <span>Taxa de Entrega (Estimada):</span>
+                    <strong id="summary-delivery">R$ 6,00</strong>
+                </div>
+                <div class="summary-line total-line">
+                    <span>Total Estimado:</span>
+                    <strong id="summary-total" style="color: #10B981;">R$ 0,00</strong>
+                </div>
+
+                <button class="btn-submit-order" onclick="submitOrderWhatsApp()">
+                    <i data-lucide="message-circle"></i> Confirmar &amp; Enviar Pedido via WhatsApp
+                </button>
+                
+                <button class="btn-continue-choosing" onclick="window.toggleCartDrawer(false)">
+                    <i data-lucide="arrow-left"></i> Continuar Escolhendo
+                </button>
+            </div>
+        </div>
+
+        <div class="cart-footer-signature">
+            <span>Tecnologia por <strong style="color: #F59E0B;">Onira Labs</strong></span>
+        </div>
+    </aside>
+
+    <!-- Mobile Bottom Floating Action Bar -->
+    <div class="mobile-bottom-bar">
+        <a href="https://wa.me/555432234075?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20um%20pedido%20na%20Pastelaria%20S%C3%A3o%20Jos%C3%A9." target="_blank" class="mob-btn wa">
+            <i data-lucide="phone"></i> WhatsApp
+        </a>
+        <button class="mob-btn cart" onclick="window.toggleCartDrawer(true)">
+            <i data-lucide="shopping-bag"></i> Ver Carrinho (<span id="mob-cart-count">0</span>)
+        </button>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
