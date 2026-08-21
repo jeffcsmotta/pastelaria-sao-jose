@@ -7,6 +7,14 @@
     <meta name="description" content="🥟 Pastelaria São José — Pastéis crocantes fritos na hora, bolos de carne e queijo, caldo de cana geladinho e porções no bairro Exposição em Caxias do Sul. Pedidos via WhatsApp!">
     <meta name="keywords" content="Pastelaria São José, Pastelaria Caxias do Sul, Pastel Exposição, Caldo de Cana Caxias, Bolo de Carne Caxias do Sul, Delivery Pastel Caxias">
 
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#16A34A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="São José">
+    <link rel="apple-touch-icon" href="assets/logo.svg">
+
     <!-- Open Graph SEO -->
     <meta property="og:title" content="Pastelaria São José | Pastéis Crocantes &amp; Caldo de Cana">
     <meta property="og:description" content="Tradição e sabor em Caxias do Sul. Pastéis recheados e fritos na hora, bolos da casa e caldo de cana geladinho. Faça seu pedido!">
@@ -21,9 +29,140 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Critical Inline CSS for Instant Splash Screen & PWA Banner -->
+    <style>
+        .pwa-splash {
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 9999999 !important;
+            background: radial-gradient(circle at center, #1E293B 0%, #0B0F17 100%) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s !important;
+            backdrop-filter: blur(20px) !important;
+        }
+        .pwa-splash.fade-out {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        .splash-content {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .splash-logo-wrap {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .splash-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 2;
+            animation: splashPop 1s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            filter: drop-shadow(0 10px 25px rgba(22, 163, 74, 0.6));
+        }
+        .splash-glow {
+            position: absolute;
+            inset: -20px;
+            background: radial-gradient(circle, rgba(22, 163, 74, 0.5) 0%, rgba(22, 163, 74, 0) 70%);
+            border-radius: 50%;
+            animation: glowPulse 1.5s infinite alternate;
+            z-index: 1;
+        }
+        @keyframes splashPop {
+            0% { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+            60% { transform: scale(1.2) rotate(4deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+        @keyframes glowPulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.4); opacity: 1; }
+        }
+        .splash-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+        .splash-subtitle {
+            font-size: 0.95rem;
+            color: #22C55E;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .splash-loader {
+            width: 50px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 99px;
+            position: relative;
+            overflow: hidden;
+        }
+        .splash-loader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #16A34A, #4ADE80);
+            border-radius: 99px;
+            animation: loadBar 1.6s ease-in-out forwards;
+        }
+        @keyframes loadBar {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+        .btn-install-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(22, 163, 74, 0.15);
+            color: #22C55E;
+            border: 1px solid rgba(22, 163, 74, 0.4);
+            padding: 8px 14px;
+            border-radius: 99px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-install-header:hover {
+            background: #16A34A;
+            color: #FFFFFF;
+            transform: scale(1.04);
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.css?v=20260814-v6">
 </head>
 <body class="theme-regular">
+
+    <!-- PWA Splash Screen Animada com Estouro de Logo -->
+    <div id="pwa-splash" class="pwa-splash">
+        <div class="splash-content">
+            <div class="splash-logo-wrap">
+                <img src="assets/logo.svg" alt="Pastelaria São José Logo" class="splash-logo">
+                <div class="splash-glow"></div>
+            </div>
+            <h2 class="splash-title">Pastelaria São José</h2>
+            <p class="splash-subtitle">🥟 Pastéis Crocantes & Caldo de Cana...</p>
+            <div class="splash-loader"></div>
+        </div>
+    </div>
 
     <!-- Top Announcement Bar -->
     <div class="top-bar">
@@ -36,6 +175,10 @@
                 <span><i data-lucide="sparkles"></i> Pastéis &amp; Bolos Fritos na Hora</span>
             </div>
             <div class="top-contacts">
+                <button type="button" class="btn-install-header" onclick="window.triggerPWAInstall()" aria-label="Instalar aplicativo">
+                    <i data-lucide="download"></i>
+                    <span>Instalar App</span>
+                </button>
                 <a href="https://wa.me/555432234075" target="_blank" class="top-wa">
                     <i data-lucide="phone"></i>
                     <span>Telefone / WhatsApp: (54) 3223-4075</span>
@@ -127,25 +270,41 @@
                 <p class="section-subtitle">Tudo frito na hora com ingredientes frescos e massa artesanal crocante</p>
             </div>
 
+            <!-- Official Board Menu Banner Callout -->
+            <div class="menu-board-banner" style="background: rgba(255,107,0,0.06); border: 1px dashed rgba(255,107,0,0.3); border-radius: 16px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div style="background: var(--primary); color: white; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <i data-lucide="image" style="width: 22px; height: 22px;"></i>
+                    </div>
+                    <div>
+                        <strong style="color: var(--text-dark); font-size: 1.05rem; display: block;">Cardápio Oficial de Balcão</strong>
+                        <p style="margin: 2px 0 0 0; color: #666; font-size: 0.9rem;">Preços e itens atualizados diretamente da placa oficial da Pastelaria São José.</p>
+                    </div>
+                </div>
+                <a href="assets/cardapio_saojose.webp" target="_blank" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.88rem; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <i data-lucide="eye" style="width: 16px; height: 16px;"></i> Ver Placa do Cardápio
+                </a>
+            </div>
+
             <!-- Category Filter Pills -->
             <div class="category-pills">
                 <button class="cat-pill active" onclick="filterCategory('all', this)">
                     <i data-lucide="grid"></i> Todos os Itens
                 </button>
-                <button class="cat-pill" onclick="filterCategory('especiais', this)">
-                    <i data-lucide="star"></i> Pastéis Salgados
+                <button class="cat-pill" onclick="filterCategory('carne', this)">
+                    <i data-lucide="flame"></i> Pastéis de Carne
                 </button>
-                <button class="cat-pill" onclick="filterCategory('bolos', this)">
-                    <i data-lucide="flame"></i> Bolos da Casa
+                <button class="cat-pill" onclick="filterCategory('especiais', this)">
+                    <i data-lucide="star"></i> Pastéis Salgados M
                 </button>
                 <button class="cat-pill" onclick="filterCategory('doces', this)">
                     <i data-lucide="heart"></i> Pastéis Doces
                 </button>
-                <button class="cat-pill" onclick="filterCategory('porcoes', this)">
-                    <i data-lucide="package"></i> Porções
+                <button class="cat-pill" onclick="filterCategory('outros', this)">
+                    <i data-lucide="package"></i> Salgados &amp; Outros
                 </button>
                 <button class="cat-pill" onclick="filterCategory('bebidas', this)">
-                    <i data-lucide="cup-soda"></i> Caldo de Cana &amp; Bebidas
+                    <i data-lucide="cup-soda"></i> Bebidas &amp; Cafés
                 </button>
             </div>
 
@@ -185,7 +344,7 @@
             </div>
             <div class="about-media">
                 <div class="media-box">
-                    <img src="assets/pastel1.jpg" alt="Pastel São José frito na hora" class="about-img main-img">
+                    <img src="assets/pastelaria_saojose.webp" alt="Fachada tradicional da Pastelaria São José no bairro Exposição" class="about-img main-img">
                     <div class="media-badge">
                         <i data-lucide="check-circle-2"></i> Caldo de cana moído na hora
                     </div>
@@ -358,108 +517,118 @@
         </div>
     </footer>
 
-    <!-- Shopping Cart Drawer -->
-    <div class="cart-drawer-overlay" id="cart-overlay" onclick="window.toggleCartDrawer(false)"></div>
+    <!-- Shopping Cart Drawer (CLAEM MASTER TEMPLATE STRUCTURE) -->
+    <div class="cart-drawer-overlay" id="cart-overlay" onclick="window.closeCart()"></div>
     <aside class="cart-drawer" id="cart-drawer">
+        <!-- Fixed Drawer Header (Crisp #FFFFFF Title & ALWAYS ORANGE Pill Button Top Right) -->
         <div class="cart-header">
             <div class="cart-header-title">
                 <i data-lucide="shopping-bag"></i>
-                <h3 style="color:#FFFFFF; font-weight:800; font-size:1.25rem;">Seu Pedido • Pastelaria São José</h3>
+                <span>Seu Pedido São José</span>
             </div>
-            <button class="cart-close-btn" onclick="window.toggleCartDrawer(false)">
-                <i data-lucide="x"></i>
+            <button type="button" class="btn-continue-shopping" onclick="window.closeCart()" aria-label="Continuar Escolhendo">
+                <i data-lucide="arrow-left" style="width:14px; height:14px;"></i>
+                <span>Continuar Escolhendo</span>
             </button>
         </div>
-
+        
+        <!-- Single Unified Scrollable Body -->
         <div class="cart-body">
-            <!-- Items Container -->
-            <div class="cart-items-container" id="cart-items-list">
-                <!-- Cart items dynamically rendered -->
+            <!-- Cart Items Section -->
+            <div class="cart-section">
+                <div class="cart-section-title">ITENS DO PEDIDO</div>
+                <div id="cart-items-container" class="cart-items-container">
+                    <!-- JS populated -->
+                </div>
             </div>
 
-            <!-- Fulfillment Toggle -->
-            <div class="fulfillment-section">
-                <label class="form-label">Forma de Entrega / Retirada:</label>
-                <div class="fulfillment-toggle">
-                    <button type="button" class="ful-btn active" id="ful-delivery" onclick="setFulfillment('delivery')">
-                        <i data-lucide="truck"></i> Tele-Entrega
+            <!-- Delivery Type Toggle -->
+            <div class="cart-option-group">
+                <label>FORMA DE ENTREGA / RETIRADA:</label>
+                <div class="delivery-toggle">
+                    <button type="button" class="del-btn active" data-type="delivery">
+                        <i data-lucide="truck"></i> Delivery (R$ 6,00)
                     </button>
-                    <button type="button" class="ful-btn" id="ful-pickup" onclick="setFulfillment('pickup')">
-                        <i data-lucide="store"></i> Retirar no Balcão
+                    <button type="button" class="del-btn" data-type="retirada">
+                        <i data-lucide="store"></i> Retirada no Balcão
                     </button>
                 </div>
             </div>
 
-            <!-- Customer Details Form -->
-            <div class="cart-form">
-                <div class="form-group">
-                    <label for="cust-name" class="form-label">Nome Completo:</label>
-                    <input type="text" id="cust-name" class="form-input" placeholder="Digite seu nome completo...">
-                </div>
-                
-                <div class="form-group" id="address-group">
-                    <label for="cust-address" class="form-label">Endereço Completo de Entrega:</label>
-                    <input type="text" id="cust-address" class="form-input" placeholder="Rua, número, complemento e bairro...">
+            <!-- Address / Customer Form -->
+            <div class="cart-option-group" id="address-box">
+                <label>SEUS DADOS PARA ENTREGA:</label>
+                <input type="text" id="cust-name" class="input-dark" placeholder="Seu Nome Completo" style="margin-bottom:8px;">
+                <input type="text" id="cust-address" class="input-dark" placeholder="Endereço Completo de Entrega (Rua, Nº, Bairro)">
+            </div>
+
+            <!-- Payment Method Toggle -->
+            <div class="cart-option-group">
+                <label>FORMA DE PAGAMENTO:</label>
+                <div class="payment-toggle">
+                    <button type="button" class="pay-btn active" data-pay="Pix (Chave Copia e Cola)">
+                        <i data-lucide="qr-code"></i> Pix
+                    </button>
+                    <button type="button" class="pay-btn" data-pay="Cartão de Crédito/Débito">
+                        <i data-lucide="credit-card"></i> Cartão
+                    </button>
+                    <button type="button" class="pay-btn" data-pay="Dinheiro">
+                        <i data-lucide="banknote"></i> Dinheiro
+                    </button>
                 </div>
 
-                <div class="form-group">
-                    <label for="payment-method" class="form-label">Forma de Pagamento:</label>
-                    <select id="payment-method" class="form-select" onchange="onPaymentChange(this.value)">
-                        <option value="pix">Pix (Chave com desconto ou Copia e Cola)</option>
-                        <option value="card">Cartão de Crédito / Débito (Máquina)</option>
-                        <option value="cash">Dinheiro na Entrega</option>
-                    </select>
+                <!-- Cash Change Box -->
+                <div id="cash-change-box" style="display:none; margin-top:8px;">
+                    <input type="text" id="cash-change-val" class="input-dark" placeholder="Troco para quanto? Ex: R$ 50,00">
                 </div>
 
-                <div class="form-group hidden" id="change-group">
-                    <label for="cash-change" class="form-label">Troco para quanto?</label>
-                    <input type="text" id="cash-change" class="form-input" placeholder="Ex: R$ 50,00 ou R$ 100,00">
-                </div>
-
-                <div class="form-group">
-                    <label for="order-obs" class="form-label">Observações do Pedido (Opcional):</label>
-                    <textarea id="order-obs" class="form-textarea" placeholder="Ex: Pastel sem maionese, maionese extra, caprichar na pimenta..."></textarea>
+                <!-- Pix Lock Info Box with Dynamic QR Code -->
+                <div id="pix-lock-box" class="pix-lock-box">
+                    <div class="pix-lock-title">
+                        <i data-lucide="shield-check"></i>
+                        <span>Pix Copia e Cola &amp; QR Code (Valor Travado)</span>
+                    </div>
+                    <div class="pix-qr-container">
+                        <img id="pix-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&amp;data=555432234075" alt="Pix QR Code São José" class="pix-qr-code">
+                        <div class="pix-qr-info">
+                            <p class="pix-lock-desc">
+                                Valor exato: <strong id="pix-locked-amount" style="color:#FFF;">R$ 0,00</strong>.<br>
+                                Escaneie a imagem com o aplicativo do seu banco ou copie a chave abaixo.
+                            </p>
+                            <button type="button" class="btn-copy-pix" onclick="window.copyPixKey()" id="btn-copy-pix-key">
+                                <i data-lucide="copy"></i> Copiar Chave Pix
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Pix Key Copy Section -->
-            <div class="pix-key-box" id="pix-key-box">
-                <div class="pix-key-info">
-                    <span>Chave Pix CNPJ / Celular:</span>
-                    <strong>(54) 3223-4075</strong>
-                </div>
-                <button type="button" class="btn-pix-copy" id="btn-pix-copy" onclick="copyPixKey()">
-                    <i data-lucide="copy"></i> Copiar Chave Pix
-                </button>
-            </div>
-
-            <!-- Summary & Submit CTA -->
-            <div class="cart-summary-box">
+            <!-- Summary Breakdown -->
+            <div class="cart-summary">
                 <div class="summary-line">
                     <span>Subtotal:</span>
-                    <strong id="summary-subtotal">R$ 0,00</strong>
+                    <span id="cart-subtotal">R$ 0,00</span>
                 </div>
-                <div class="summary-line" id="summary-delivery-line">
-                    <span>Taxa de Entrega (Estimada):</span>
-                    <strong id="summary-delivery">R$ 6,00</strong>
+                <div class="summary-line">
+                    <span>Taxa de Entrega:</span>
+                    <span id="cart-delivery-fee">R$ 6,00</span>
                 </div>
-                <div class="summary-line total-line">
+                <div class="summary-line total">
                     <span>Total Estimado:</span>
-                    <strong id="summary-total" style="color: #10B981;">R$ 0,00</strong>
+                    <span id="cart-grand-total">R$ 0,00</span>
                 </div>
-
-                <button class="btn-submit-order" onclick="submitOrderWhatsApp()">
-                    <i data-lucide="message-circle"></i> Confirmar &amp; Enviar Pedido via WhatsApp
-                </button>
-                
-                <button class="btn-continue-choosing" onclick="window.toggleCartDrawer(false)">
-                    <i data-lucide="arrow-left"></i> Continuar Escolhendo
-                </button>
             </div>
-        </div>
 
-        <div class="cart-footer-signature">
-            <span>Tecnologia por <strong style="color: #F59E0B;">Onira Labs</strong></span>
+            <!-- Submit CTA -->
+            <button type="button" class="btn btn-whatsapp btn-block" onclick="window.sendWhatsAppOrder()" id="btn-send-whatsapp">
+                <i data-lucide="send"></i>
+                <span>Enviar Pedido via WhatsApp</span>
+            </button>
+
+            <!-- TECNOLOGIA BY ONIRA LABS SIGNATURE -->
+            <div class="onira-signature">
+                <span>Tecnologia por <strong>Onira Labs</strong></span>
+            </div>
         </div>
     </aside>
 
@@ -473,9 +642,87 @@
         </button>
     </div>
 
+    <!-- Floating PWA Install Prompt Banner -->
+    <div id="pwa-install-banner" class="pwa-install-banner">
+        <div class="pwa-install-info">
+            <img src="assets/logo.svg" alt="Logo" class="pwa-install-icon">
+            <div>
+                <strong>Instalar App da Pastelaria</strong>
+                <p>Peça em 1 toque na tela inicial</p>
+            </div>
+        </div>
+        <div class="pwa-install-actions">
+            <button id="btn-pwa-install" class="btn-pwa-action" onclick="window.triggerPWAInstall()">Instalar</button>
+            <button class="btn-pwa-close" onclick="window.dismissPWA()" aria-label="Fechar">&times;</button>
+        </div>
+    </div>
+
     <!-- Toast Notification Container -->
     <div class="toast-container" id="toast-container"></div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20260814-v6"></script>
+    <script>
+        // PWA Splash Screen Handler
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('pwa-splash');
+                if (splash) {
+                    splash.classList.add('fade-out');
+                    setTimeout(() => splash.remove(), 700);
+                }
+            }, 2000);
+        });
+
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('São José ServiceWorker registrado:', reg.scope))
+                    .catch(err => console.warn('Erro ServiceWorker:', err));
+            });
+        }
+
+        // PWA Install Prompt Handler
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        // Always show install banner after splash
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const banner = document.getElementById('pwa-install-banner');
+                if (banner && !sessionStorage.getItem('pwa_dismissed')) {
+                    banner.classList.add('show');
+                }
+            }, 3000);
+        });
+
+        window.triggerPWAInstall = async () => {
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.classList.remove('show');
+            
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Resultado da instalação PWA: ${outcome}`);
+                deferredPrompt = null;
+            } else {
+                const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if (isIOS) {
+                    alert("📲 Para instalar no iPhone:\n\n1. Toque no botão de Compartilhar (ícone com quadrado e seta ⎋)\n2. Role para baixo e selecione 'Adicionar à Tela de Início'");
+                } else {
+                    alert("📲 Para instalar no seu celular Android:\n\n1. Toque nos 3 pontinhos (⋮) no topo do navegador Chrome\n2. Selecione 'Instalar aplicativo' ou 'Adicionar à tela inicial'");
+                }
+            }
+        };
+
+        window.dismissPWA = () => {
+            const banner = document.getElementById('pwa-install-banner');
+            if (banner) banner.classList.remove('show');
+            sessionStorage.setItem('pwa_dismissed', 'true');
+        };
+    </script>
 </body>
 </html>
